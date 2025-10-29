@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famous Quotes: Results</title>
+</head>
+
+<body>
+
+    <h1 class="bg-primary text-white p-4">Famous Quotes</h1>
+
+    <% for (let row of rows) { %>
+        "<%= row.quote %>"<br>
+            <a class="authors" href="#" authorId="<%= row.authorId %>">
+                <%= row.firstName %>
+                    <%= row.lastName %>
+            </a>
+            <br><br>
+            <% } %>
+
+            <div id="authorInfo">
+                <h2 id="authorName"></h2>
+                <img id="authorImage">
+            </div>
+
+            <script>
+                //event listener
+                $(".authors").addEventListener("click", getAuthorInfo);
+
+                function $(selector) {
+                    return document.querySelector(selector);
+                }
+
+                async function getAuthorInfo() {
+                    let authorId = this.getAttribute("authorId");
+                    let url = "api/authors/" + authorId;
+                    let response = await fetch(url);
+                    let data = await response.json();
+                    console.log(data);
+                    $("#authorName").textContent = data[0].firstName + " " + data[0].lastName;
+                    $("#authorImage").src = data[0].portrait;
+
+                }
+
+            </script>
+
+</body>
+
+</html>
