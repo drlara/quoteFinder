@@ -20,8 +20,19 @@ const pool = mysql.createPool({
 });
 
 //routes
-app.get('/', (req, res) => {
-   res.render('home.ejs')
+app.get('/', async (req, res) => {
+   let sql = `SELECT authorId, firstName, lastName
+              FROM authors
+              ORDER BY lastName`;
+   const [rows] = await pool.query(sql);  
+   console.log(rows);        
+   res.render('home.ejs', {rows})
+});
+
+app.get('/searchByAuthor', (req, res) => {
+   let authorId = req.query.authorId;
+   // write SQL to retreive quotes based on authorId 
+   res.render('results.ejs')
 });
 
 app.get('/searchByKeyword', async(req, res) => {

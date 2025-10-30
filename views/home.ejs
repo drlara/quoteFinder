@@ -16,5 +16,26 @@
       <button class="btn btn-outline-success">Search</button>
     </form>
 
+    <br><hr><br>
+
+    <form action="/searchByAuthor">
+
+       Author: 
+       <select name="authorId">
+         <% for (row of rows) { %>
+         <option value="<%=row.authorId %>"><%=row.firstName %> <%=row.lastName %></option>
+        <% } %>
+       </select>
+       <button class="btn btn-outline-success">Search</button>
+
+    </form>
+
+
+
+
+<footer>
+
+</footer>
+
 </body>
 </html>
